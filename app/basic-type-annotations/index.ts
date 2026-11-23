@@ -27,6 +27,11 @@ async function runTopic(title: string, modulePath: string): Promise<void> {
     await import(modulePath)
 }
 
+/**
+ * Titik masuk utama yang mengeksekusi seluruh sub-topik secara berurutan.
+ *
+ * @returns {Promise<void>}
+ */
 async function main(): Promise<void> {
     await runTopic("1. String Annotation", "./string")
     await runTopic("2. Number Annotation", "./number")
