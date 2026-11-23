@@ -1,6 +1,6 @@
 # Core Functions
 
-Modul ini membahas cara memberi tipe pada fungsi di TypeScript, mulai dari parameter, nilai default, nilai kembalian (*return*), `void`, hingga `never`.
+Modul ini membahas cara memberi tipe pada fungsi di TypeScript, mulai dari parameter, nilai default, nilai kembalian (_return_), `void`, hingga `never`.
 
 ## Materi yang Dibahas
 
