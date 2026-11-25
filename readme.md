@@ -18,8 +18,14 @@ bun app/basic-type-annotations/index.ts
 # Run an individual sub-topic file directly
 bun app/basic-type-annotations/string.ts
 
-# Type-check without emitting JavaScript files
-tsc --noEmit app/basic-type-annotations/*.ts
+# Type-check all TypeScript files without emitting JavaScript
+tsc --noEmit
+
+# Run all per-topic Jest test suites
+bun run test
+
+# Run the Jest test suite for a single topic folder
+npx jest app/interfaces
 ```
 
 > [!TIP]
@@ -52,12 +58,12 @@ Follow the modules from top to bottom — folder names are intentionally structu
 ### Runtime & Ecosystem
 
 - [Page DOM](app/page-dom/) — type-safe DOM queries (`HTMLHeadingElement`, `HTMLButtonElement`) with [index.html](app/page-dom/index.html) and browser bundling via `bun build` ([learn.md](app/page-dom/learn.md))
-- [Request Axios](app/request-axios/) — declaration files ([todo.d.ts](app/request-axios/todo.d.ts)), typed async HTTP requests with offline fallback, and Axios setup guide ([learn.md](app/request-axios/learn.md))
-- [Server Express](app/server-express/) — typed HTTP request/response server runnable out of the box with `Bun.serve` (`--test` flag for quick verification) plus Express + `@types/express` guide ([learn.md](app/server-express/learn.md))
+- [Request Ofetch](app/request-ofetch/) — declaration files ([todo.d.ts](app/request-ofetch/todo.d.ts)), typed async HTTP requests with `ofetch<Todo>()`, `FetchError` handling, and offline fallback ([learn.md](app/request-ofetch/learn.md))
+- [Server Bun](app/server-bun/) — typed HTTP server built with `Bun.serve` and `@types/bun` using Web Standard `Request` / `Response` ([learn.md](app/server-bun/learn.md))
 
 ## How to Learn
 
-1. Follow the modules in alphabetical order from `about-installation/` through `server-express/`.
+1. Follow the modules in alphabetical order from `about-installation/` through `server-bun/`.
 2. Read the module's `learn.md` (or `global.md`) and the inline `/** ... */` JSDoc explanations inside each `.ts` file.
 3. Run the module with `bun app/<module>/index.ts` and observe the terminal output.
 4. Experiment by uncommenting type-error examples and running `tsc --noEmit` to see how TypeScript catches mistakes before runtime.
@@ -71,53 +77,71 @@ Follow the modules from top to bottom — folder names are intentionally structu
 app/
 ├── about-installation/
 │   ├── global.md
+│   ├── hello.test.ts
 │   └── hello.ts
 ├── basic-type-annotations/
 │   ├── any-type.ts
 │   ├── boolean.ts
+│   ├── index.test.ts
 │   ├── index.ts
 │   ├── learn.md
 │   ├── number.ts
 │   ├── string.ts
 │   └── type-inference.ts
 ├── core-functions/
+│   ├── index.test.ts
 │   ├── index.ts
 │   └── learn.md
 ├── data-arrays/
+│   ├── index.test.ts
 │   ├── index.ts
 │   └── learn.md
 ├── essential-objects/
+│   ├── index.test.ts
 │   ├── index.ts
 │   └── learn.md
 ├── flexible-unions/
+│   ├── index.test.ts
 │   ├── index.ts
 │   └── learn.md
 ├── grouped-tuples-enums/
+│   ├── index.test.ts
 │   ├── index.ts
 │   └── learn.md
 ├── hierarchy-classes/
+│   ├── index.test.ts
 │   ├── index.ts
 │   └── learn.md
 ├── interfaces/
+│   ├── index.test.ts
 │   ├── index.ts
 │   └── learn.md
 ├── modular-generics/
+│   ├── index.test.ts
 │   ├── index.ts
 │   └── learn.md
 ├── narrowing-types/
+│   ├── index.test.ts
 │   ├── index.ts
 │   └── learn.md
 ├── page-dom/
 │   ├── index.html
+│   ├── index.test.ts
 │   ├── index.ts
 │   └── learn.md
-├── request-axios/
+├── request-ofetch/
+│   ├── index.test.ts
 │   ├── index.ts
 │   ├── learn.md
 │   └── todo.d.ts
-└── server-express/
+└── server-bun/
+    ├── index.test.ts
     ├── index.ts
     └── learn.md
+
+jest.config.ts
+package.json
+tsconfig.json
 ```
 
 </details>
