@@ -110,4 +110,4 @@ try {
  * ```
  */
 
-export {}
+export { addOne, double, greet, doubleSquare, printMessage, throwError }

@@ -81,4 +81,5 @@ console.log("Literals:", { color, priority, isConfirmed }) // Literals: { color:
  * ```
  */
 
-export {}
+export { password, mixedItems, profile, color, priority, isConfirmed }
+export type { UserInfo, AccountDetails }

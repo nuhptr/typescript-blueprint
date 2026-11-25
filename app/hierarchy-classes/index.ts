@@ -127,4 +127,4 @@ console.log("SuperPlayer:", admin.fullName, "| Admin:", admin.isAdmin, "| Score:
  * ```
  */
 
-export {}
+export { Player, SuperPlayer, player, admin }

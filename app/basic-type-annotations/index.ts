@@ -40,6 +40,8 @@ async function main(): Promise<void> {
     await runTopic("5. Any Type", "./any-type")
 }
 
-main()
+if (!process.env.JEST_WORKER_ID) {
+    main()
+}
 
-export {}
+export { runTopic, main }

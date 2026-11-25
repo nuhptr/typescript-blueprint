@@ -1,6 +1,6 @@
 # Modular Generics
 
-Modul ini membahas **Generics** di TypeScript untuk menulis fungsi dan class yang fleksibel, dapat digunakan ulang, namun tetap *type-safe*.
+Modul ini membahas **Generics** di TypeScript untuk menulis fungsi dan class yang fleksibel, dapat digunakan ulang, namun tetap _type-safe_.
 
 ## Materi yang Dibahas
 

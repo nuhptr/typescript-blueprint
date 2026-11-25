@@ -32,4 +32,4 @@ console.log("greeting:", greeting) // "Halo, Belajar TypeScript!"
  * ```
  */
 
-export {}
+export { myName, greeting }

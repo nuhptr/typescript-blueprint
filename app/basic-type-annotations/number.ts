@@ -32,4 +32,4 @@ console.log("price:", price) // 19.99
  * ```
  */
 
-export {}
+export { favNumber, price }

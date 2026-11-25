@@ -63,4 +63,4 @@ console.log(`Cuaca hari ini: ${currentWeather}`) // Cuaca hari ini: sunny
  * ```
  */
 
-export {}
+export { myTuple, first, second, games, WeatherConditions, currentWeather }
