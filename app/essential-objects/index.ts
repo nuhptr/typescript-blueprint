@@ -1,20 +1,25 @@
 /**
- * Essential Objects (Tipe Objek & Type Aliases)
+ * Essential Objects (Tipe Objek, Type Aliases, Optional, Readonly, & Intersection)
  *
- * Modul ini membahas cara mengetikkan struktur objek di TypeScript:
- * anotasi objek inline, `type` alias untuk pemakaian ulang, properti opsional (`?`),
- * properti hanya-baca (`readonly`), dan penggabungan tipe (*intersection types* `&`).
+ * Modul ini membahas cara mendefinisikan struktur objek di TypeScript secara
+ * aman dan dapat digunakan ulang, mencakup:
+ * 1. Object Types (anotasi objek secara inline pada variabel dan fungsi)
+ * 2. Type Aliases (`type`) untuk memberi nama kontrak objek yang reusable
+ * 3. Optional Properties (`?`) untuk properti yang boleh dikosongkan
+ * 4. Readonly Properties (`readonly`) untuk mencegah mutasi setelah inisialisasi
+ * 5. Intersection Types (`&`) untuk menggabungkan beberapa tipe objek
  *
  * Contoh penggunaan umum:
- * - Memodelkan entitas data seperti pengguna, produk, atau konfigurasi.
- * - Melindungi properti identitas (`id`) agar tidak berubah setelah dibuat.
- * - Menggabungkan beberapa model objek menjadi satu tipe gabungan.
+ * - Memodelkan entitas domain seperti profil pengguna, produk, atau konfigurasi.
+ * - Melindungi identitas objek (`id`, `location`) dari perubahan tidak sengaja.
+ * - Mengomposisikan tipe modular menjadi satu kontrak lengkap tanpa duplikasi.
  */
 
 /**
- * 1. Inline Object Types
+ * 1. Object Types (Inline Object Annotation)
  *
- * Struktur properti objek ditulis langsung sebagai anotasi tipe variabel.
+ * Menentukan bentuk dan tipe setiap properti objek secara langsung pada
+ * deklarasi variabel. Semua properti yang dideklarasikan wajib diisi.
  */
 const person: { firstName: string; lastName: string; age: number } = {
     firstName: "John",
@@ -24,9 +29,10 @@ const person: { firstName: string; lastName: string; age: number } = {
 console.log("Object:", `${person.firstName} ${person.lastName}, ${person.age}`) // Object: John Doe, 30
 
 /**
- * Membuat objek pengguna default dengan anotasi return objek secara inline.
+ * Fungsi factory yang mengembalikan objek pengguna bawaan dengan anotasi
+ * return type objek secara eksplisit.
  *
- * @returns {{ name: string; age: number; location: string }} Objek pengguna standar.
+ * @returns {{ name: string; age: number; location: string }} Objek profil pengguna default.
  */
 function createDefaultUser(): { name: string; age: number; location: string } {
     return { name: "Alex", age: 24, location: "Indonesia" }
@@ -34,31 +40,36 @@ function createDefaultUser(): { name: string; age: number; location: string } {
 console.log("Factory object:", createDefaultUser()) // Factory object: { name: "Alex", age: 24, location: "Indonesia" }
 
 /**
- * 2. Type Aliases, 3. Optional Properties (`?`), & 4. Readonly (`readonly`)
+ * 2. Type Aliases (`type`), 3. Optional Properties (`?`), & 4. Readonly (`readonly`)
  *
- * Tipe `User` mendefinisikan kontrak objek yang dapat dipakai ulang:
- * - `id` dan `location` bersifat `readonly` sehingga tidak bisa diubah ulang.
- * - `age` bersifat opsional (`?`) sehingga boleh tidak diisi.
+ * Mendefinisikan alias tipe `User` agar struktur objek dapat dipakai ulang
+ * di berbagai variabel dan parameter fungsi.
  */
 type User = {
+    /** Identitas unik pengguna; bersifat `readonly` sehingga tidak dapat diubah ulang. */
     readonly id: number
+    /** Nama lengkap atau nama panggilan pengguna (wajib ada). */
     name: string
+    /** Usia pengguna; bersifat opsional (`?`) sehingga boleh tidak disertakan (`number | undefined`). */
     age?: number
+    /** Domisili pengguna; bersifat `readonly` agar tetap konsisten setelah dibuat. */
     readonly location: string
 }
 
 /**
- * Memformat ringkasan profil pengguna menjadi satu baris teks.
+ * Memformat informasi `User` menjadi string ringkas.
+ * Menggunakan nullish coalescing (`??`) untuk menangani properti opsional `age`
+ * ketika bernilai `undefined`.
  *
- * @param {User} user Objek pengguna yang akan diformat.
- * @returns {string} Ringkasan informasi pengguna.
+ * @param {User} user Objek pengguna yang memenuhi kontrak tipe `User`.
+ * @returns {string} Ringkasan profil dalam format `#<id> <name> (<age|N/A>) - <location>`.
  */
 const printUserInfo = (user: User): string => {
     return `#${user.id} ${user.name} (${user.age ?? "N/A"}) - ${user.location}`
 }
 
 /**
- * Contoh pembuatan `User` tanpa mengisi properti opsional `age`.
+ * Contoh objek `User` yang tidak menyertakan properti opsional `age`.
  */
 const user: User = { id: 1, name: "Rina", location: "Jakarta" }
 console.log("Type Alias:", printUserInfo(user)) // Type Alias: #1 Rina (N/A) - Jakarta
@@ -66,20 +77,23 @@ console.log("Type Alias:", printUserInfo(user)) // Type Alias: #1 Rina (N/A) - J
 /**
  * 5. Intersection Types (`&`)
  *
- * Informasi kredensial akun yang akan digabungkan dengan tipe `User`.
+ * Tipe terpisah untuk menyimpan kredensial autentikasi akun.
  */
 type AccountInfo = {
+    /** Alamat email yang terhubung ke akun. */
     email: string
+    /** Kata sandi akun. */
     password: string
 }
 
 /**
- * Tipe gabungan yang mewajibkan seluruh properti dari `User` sekaligus `AccountInfo`.
+ * Menggabungkan tipe `User` dan `AccountInfo` menggunakan operator intersection (`&`).
+ * Objek bertipe `UserAccount` wajib memiliki seluruh properti dari kedua tipe tersebut.
  */
 type UserAccount = User & AccountInfo
 
 /**
- * Contoh objek yang memenuhi kontrak intersection `UserAccount`.
+ * Contoh objek lengkap yang memenuhi gabungan kontrak `User` dan `AccountInfo`.
  */
 const account: UserAccount = {
     id: 2,
@@ -93,10 +107,15 @@ console.log("Intersection:", account.name, account.email) // Intersection: Budi 
 
 /**
  * Contoh Error (TypeScript Compile-Time Error):
- * Properti `readonly` tidak boleh diubah setelah inisialisasi.
  *
+ * 1. Mengubah properti `readonly` setelah objek dibuat:
  * ```ts
  * user.location = "Bandung" // Error: Cannot assign to 'location' because it is a read-only property.
+ * ```
+ *
+ * 2. Menghilangkan properti wajib pada tipe objek atau intersection:
+ * ```ts
+ * const invalidUser: User = { id: 3, name: "Sari" } // Error: Property 'location' is missing in type ...
  * ```
  */
 
