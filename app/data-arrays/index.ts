@@ -63,4 +63,4 @@ console.log("3D:", tripleDi) // 3D: [ [ [ 1, 2 ], [ 3, 4 ] ] ]
  * ```
  */
 
-export {}
+export { nums, items, tools, singleDi, multiDi, tripleDi }

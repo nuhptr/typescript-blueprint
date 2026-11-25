@@ -31,4 +31,4 @@ console.log("isCompleted:", isCompleted) // true
  * ```
  */
 
-export {}
+export { tsHard, isCompleted }

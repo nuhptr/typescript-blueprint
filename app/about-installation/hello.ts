@@ -41,4 +41,5 @@ const developer: User = {
 
 console.log(greet(developer)) // "Halo, Anmastery! Selamat datang di TypeScript (TypeScript Blueprint)."
 
-export {}
+export { greet, developer }
+export type { User }

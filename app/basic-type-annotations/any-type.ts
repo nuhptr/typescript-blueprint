@@ -37,4 +37,4 @@ try {
     }
 }
 
-export {}
+export { color }

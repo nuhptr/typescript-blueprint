@@ -119,4 +119,5 @@ console.log("Intersection:", account.name, account.email) // Intersection: Budi 
  * ```
  */
 
-export {}
+export { person, createDefaultUser, printUserInfo, user, account }
+export type { User, AccountInfo, UserAccount }

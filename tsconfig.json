@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "target": "ES2022",
+        "module": "Preserve",
+        "moduleResolution": "Bundler",
+        "strict": true,
+        "types": ["bun", "jest", "node"],
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "noEmit": true
+    },
+    "include": ["app/**/*.ts", "jest.config.ts"]
+}

@@ -39,4 +39,4 @@ console.log("Runtime types:", typeof tech, typeof version, typeof isTyped) // "s
  * ```
  */
 
-export {}
+export { tech, version, isTyped }
